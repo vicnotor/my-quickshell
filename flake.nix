@@ -12,6 +12,7 @@
   outputs = {
     self,
     nixpkgs,
+    quickshell,
   }: let
     supportedSystems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
     forEachSupportedSystem = f:
@@ -20,13 +21,18 @@
           pkgs = import nixpkgs {inherit system;};
         });
   in {
-    devShells = forEachSupportedSystem ({pkgs}: {
+    devShells = forEachSupportedSystem ({pkgs}: let
+      my-quickshell = pkgs.writeShellScriptBin "my-quickshell" ''
+        qs -p .
+      '';
+    in {
       default =
         pkgs.mkShell
         {
           packages = with pkgs; [
             kdePackages.qtdeclarative
             quickshell.packages.${pkgs.system}.default
+            my-quickshell
           ];
           shellHook = ''
             echo "Generating empty .qmlls.ini file if non-existent"
