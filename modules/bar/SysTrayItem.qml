@@ -10,9 +10,10 @@ MouseArea {
   required property var bar
   required property SystemTrayItem item
 
+  Layout.minimumHeight: 24
+  Layout.minimumWidth: 28
+
   acceptedButtons: Qt.LeftButton | Qt.RightButton
-  Layout.fillHeight: true
-  Layout.preferredWidth: 30
   onClicked: event => {
     switch (event.button) {
     case Qt.LeftButton:

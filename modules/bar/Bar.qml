@@ -1,5 +1,3 @@
-// Bar.qml
-import "../clock"
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
@@ -20,29 +18,41 @@ Scope {
       }
       implicitHeight: 32
       margins {
-        top: 4
+        top: 0
         right: 4
         left: 4
         bottom: 4
       }
 
-      Rectangle {
+      Item {
         anchors.fill: parent
-        radius: 8
-        color: "#282652"
-      }
-      Workspaces {
-        anchors.centerIn: parent
-      }
-      Clock {
-        anchors {
-          right: parent.right
-          verticalCenter: parent.verticalCenter
-          rightMargin: 8
+
+        RowLayout {
+          anchors {
+            top: parent.top
+            left: parent.left
+            horizontalCenter: parent.horizontalCenter
+          }
+          SysTray {
+            bar: barRoot
+          }
         }
-      }
-      SysTray {
-        bar: barRoot
+
+        WorkspaceBar {
+          bar: barRoot
+          anchors {
+            top: parent.top
+            horizontalCenter: parent.horizontalCenter
+          }
+        }
+
+        ClockBlock {
+          bar: barRoot
+          anchors {
+            right: parent.right
+            verticalCenter: parent.verticalCenter
+          }
+        }
       }
     }
   }
