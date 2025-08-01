@@ -6,5 +6,5 @@ import Quickshell
 
 Scope {
   Bar {}
-  // VerticalBar {}
+  VerticalBar {}
 }

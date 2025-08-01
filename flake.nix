@@ -45,6 +45,9 @@
         {
           inputsFrom = [shell];
           packages = with pkgs; [
+            inputs.quickshell.packages.${pkgs.system}.default
+            kdePackages.qtdeclarative # Contains qmlls and qmllint
+
             material-symbols
             nerd-fonts.jetbrains-mono
             run-quickshell-from-here

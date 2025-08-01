@@ -12,7 +12,7 @@ Item {
     acc[curr.id] = curr.lastIpcObject.windows > 0;
     return acc;
   }, {})
-  readonly property int groupOffset: Math.floor((Hyprland.focusedWorkspace.id - 1) / 10) * 10
+  readonly property int groupOffset: Math.floor((Hyprland.focusedWorkspace.id - 1) / 10) * 10 // 10 workspaces total
 
   implicitWidth: layout.implicitWidth
   implicitHeight: layout.implicitHeight
@@ -25,7 +25,7 @@ Item {
     layer.smooth: true
 
     Repeater {
-      model: 10
+      model: 10 // 10 workspaces total
 
       Workspace {
         occupied: root.occupied

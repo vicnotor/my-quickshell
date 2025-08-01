@@ -26,6 +26,8 @@ Scope {
         bottom: Appearance.margins.small
       }
 
+      visible: false // TODO: Make this into a popup
+
       Item {
         anchors.fill: parent
         BrightnessSlider {

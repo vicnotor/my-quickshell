@@ -1,6 +1,9 @@
+pragma ComponentBehavior: Bound
+
 import "modules"
 import qs.config
 import qs.services
+import qs.widgets
 import Quickshell
 import QtQuick
 
@@ -19,6 +22,16 @@ Scope {
         right: true
       }
       implicitHeight: Appearance.barHeight
+
+      visible: true
+      function toggleBar() {
+        visible = !visible;
+      }
+      CustomShortcut {
+        name: "toggleBar"
+        description: "Toggle Bar visibility"
+        onPressed: barRoot.toggleBar()
+      }
 
       Rectangle {
         anchors.fill: parent
