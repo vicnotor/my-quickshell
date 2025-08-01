@@ -1,3 +1,3 @@
 # my-quickshell
 
-Adapted from [caelestia-dots](https://github.com/caelestia-dots/shell).
+Adapted from [caelestia-dots/shell](https://github.com/caelestia-dots/shell).
