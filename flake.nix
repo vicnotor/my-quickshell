@@ -16,6 +16,7 @@
   outputs = {
     self,
     nixpkgs,
+    ...
   } @ inputs: let
     supportedSystems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
     forEachSupportedSystem = f:
@@ -24,7 +25,7 @@
           pkgs = import nixpkgs {inherit system;};
         });
   in {
-    packages = forEachSupportedSystem (pkgs: rec {
+    packages = forEachSupportedSystem ({pkgs}: rec {
       my-quickshell = pkgs.callPackage ./default.nix {
         rev = self.rev or self.dirtyRev;
         quickshell = inputs.quickshell.packages.${pkgs.system}.default;
@@ -35,6 +36,9 @@
 
     devShells = forEachSupportedSystem ({pkgs}: let
       shell = self.packages.${pkgs.system}.default;
+      run-quickshell-from-here = pkgs.writeShellScriptBin "run-quickshell-from-here" ''
+        qs -p src
+      '';
     in {
       default =
         pkgs.mkShellNoCC
@@ -43,6 +47,7 @@
           packages = with pkgs; [
             material-symbols
             nerd-fonts.jetbrains-mono
+            run-quickshell-from-here
           ];
           shellHook = ''
             echo "Generating empty .qmlls.ini file if non-existent"
