@@ -5,15 +5,18 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     quickshell = {
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs"; # THIS IS IMPORTANT
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    app2unit = {
+      url = "github:soramanew/app2unit";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs = {
     self,
     nixpkgs,
-    quickshell,
-  }: let
+  } @ inputs: let
     supportedSystems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
     forEachSupportedSystem = f:
       nixpkgs.lib.genAttrs supportedSystems (system:
@@ -21,18 +24,25 @@
           pkgs = import nixpkgs {inherit system;};
         });
   in {
+    packages = forEachSupportedSystem (pkgs: rec {
+      my-quickshell = pkgs.callPackage ./default.nix {
+        rev = self.rev or self.dirtyRev;
+        quickshell = inputs.quickshell.packages.${pkgs.system}.default;
+        app2unit = inputs.app2unit.packages.${pkgs.system}.default;
+      };
+      default = my-quickshell;
+    });
+
     devShells = forEachSupportedSystem ({pkgs}: let
-      my-quickshell = pkgs.writeShellScriptBin "my-quickshell" ''
-        qs -p .
-      '';
+      shell = self.packages.${pkgs.system}.default;
     in {
       default =
-        pkgs.mkShell
+        pkgs.mkShellNoCC
         {
+          inputsFrom = [shell];
           packages = with pkgs; [
-            kdePackages.qtdeclarative
-            quickshell.packages.${pkgs.system}.default
-            my-quickshell
+            material-symbols
+            nerd-fonts.jetbrains-mono
           ];
           shellHook = ''
             echo "Generating empty .qmlls.ini file if non-existent"
