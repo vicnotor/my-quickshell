@@ -1,6 +1,8 @@
+import "modules"
+import qs.config
+import qs.services
 import Quickshell
 import QtQuick
-import QtQuick.Layouts
 
 Scope {
   Variants {
@@ -16,41 +18,46 @@ Scope {
         left: true
         right: true
       }
-      implicitHeight: 32
-      margins {
-        top: 0
-        right: 4
-        left: 4
-        bottom: 4
+      implicitHeight: Appearance.barHeight
+
+      Rectangle {
+        anchors.fill: parent
+        color: Colors.palette.m3surface
       }
 
       Item {
         anchors.fill: parent
 
-        RowLayout {
+        BarModuleGroup {
+          id: leftBlocks
           anchors {
-            top: parent.top
             left: parent.left
-            horizontalCenter: parent.horizontalCenter
           }
           SysTray {
             bar: barRoot
           }
         }
 
-        WorkspaceBar {
-          bar: barRoot
+        BarModuleGroup {
+          id: middleBlocks
           anchors {
-            top: parent.top
             horizontalCenter: parent.horizontalCenter
+          }
+          Workspaces {
+            bar: barRoot
           }
         }
 
-        ClockBlock {
-          bar: barRoot
+        BarModuleGroup {
+          id: rightBlocks
           anchors {
             right: parent.right
-            verticalCenter: parent.verticalCenter
+          }
+          Battery {
+            bar: barRoot
+          }
+          Clock {
+            bar: barRoot
           }
         }
       }

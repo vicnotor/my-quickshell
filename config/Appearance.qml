@@ -9,8 +9,10 @@ Singleton {
   readonly property Rounding rounding: Rounding {}
   readonly property Spacing spacing: Spacing {}
   readonly property Padding padding: Padding {}
+  readonly property Margins margins: Margins {}
   readonly property FontStuff font: FontStuff {}
   readonly property Anim anim: Anim {}
+  readonly property int barHeight: 40
 
   component Rounding: QtObject {
     readonly property int small: 12
@@ -20,23 +22,31 @@ Singleton {
   }
 
   component Spacing: QtObject {
-    readonly property int small: 7
-    readonly property int smaller: 10
-    readonly property int normal: 12
-    readonly property int larger: 15
-    readonly property int large: 20
+    readonly property int small: 4
+    readonly property int smaller: 8
+    readonly property int normal: 10
+    readonly property int larger: 12
+    readonly property int large: 15
   }
 
   component Padding: QtObject {
-    readonly property int small: 5
+    readonly property int small: 4
     readonly property int smaller: 7
     readonly property int normal: 10
     readonly property int larger: 12
     readonly property int large: 15
   }
 
+  component Margins: QtObject {
+    readonly property int small: 4
+    readonly property int smaller: 8
+    readonly property int normal: 10
+    readonly property int larger: 12
+    readonly property int large: 15
+  }
+
   component FontFamily: QtObject {
-    readonly property string sans: "UbuntuSans NF"
+    readonly property string sans: "IBM Plex Sans"
     readonly property string mono: "JetBrains Mono NF"
     readonly property string material: "Material Symbols Rounded"
   }
