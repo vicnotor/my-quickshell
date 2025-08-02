@@ -12,8 +12,6 @@ Singleton {
   readonly property Margins margins: Margins {}
   readonly property FontStuff font: FontStuff {}
   readonly property Anim anim: Anim {}
-  readonly property int barHeight: 40
-  readonly property int barModulesHeight: 32
 
   component Rounding: QtObject {
     readonly property int small: 12

@@ -1,7 +1,9 @@
 import "verticalbar"
+import "osd"
 import qs.config
 import qs.modules.bar
 import qs.widgets
+import qs.services
 import Quickshell
 import QtQuick
 
@@ -24,7 +26,7 @@ Variants {
         right: true
       }
 
-      implicitHeight: Appearance.barHeight
+      implicitHeight: Config.barHeight
 
       // All components
       Bar {
@@ -34,6 +36,11 @@ Variants {
       VerticalBar {
         visible: false
       }
+      OsdVolume {}
+      OsdBrightness {
+        monitor: Brightness.monitors[0]
+      }
+      Shortcuts {}
 
       // Toggle visibility of shell
       visible: true

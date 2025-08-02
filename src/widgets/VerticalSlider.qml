@@ -14,8 +14,8 @@ Slider {
 
   orientation: Qt.Vertical
 
-  implicitWidth: 30
-  implicitHeight: 150
+  implicitWidth: Config.sliderWidth
+  implicitHeight: Config.sliderHeight
 
   background: StyledRect {
     color: Colors.alpha(Colors.palette.m3surfaceContainer, true)
@@ -61,7 +61,7 @@ Slider {
       MouseArea {
         anchors.fill: parent
         cursorShape: Qt.PointingHandCursor
-        onPressed: event => event.accepted = false
+        acceptedButtons: Qt.NoButton
       }
 
       MaterialIcon {
@@ -71,9 +71,12 @@ Slider {
 
         function update(): void {
           animate = !moving;
-          text = moving ? Qt.binding(() => Math.round(root.value * 100)) : Qt.binding(() => root.icon);
-          font.pointSize = moving ? Appearance.font.size.small : Appearance.font.size.larger;
-          font.family = moving ? Appearance.font.family.sans : Appearance.font.family.material;
+          // text = moving ? Qt.binding(() => Math.round(root.value * 100)) : Qt.binding(() => root.icon);
+          // font.pointSize = moving ? Appearance.font.size.small : Appearance.font.size.larger;
+          // font.family = moving ? Appearance.font.family.sans : Appearance.font.family.material;
+          text = moving ? Qt.binding(() => root.icon) : Qt.binding(() => Math.round(root.value * 100));
+          font.pointSize = moving ? Appearance.font.size.larger : Appearance.font.size.small;
+          font.family = moving ? Appearance.font.family.material : Appearance.font.family.sans;
         }
 
         animate: true
@@ -134,7 +137,7 @@ Slider {
     NumberAnimation {
       duration: Appearance.anim.durations.large
       easing.type: Easing.BezierSpline
-      easing.bezierCurve: Appearance.anim.curves.standard
+      easing.bezierCurve: Appearance.anim.curves.standardDecel
     }
   }
 }

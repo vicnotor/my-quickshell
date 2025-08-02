@@ -1,0 +1,16 @@
+pragma Singleton
+
+import Quickshell
+import QtQuick
+
+Singleton {
+  id: root
+
+  // bar
+  readonly property int barHeight: 40
+  readonly property int barModulesHeight: 32
+
+  // slider
+  readonly property int sliderWidth: 30
+  readonly property int sliderHeight: 150
+}

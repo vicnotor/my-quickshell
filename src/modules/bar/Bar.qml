@@ -1,12 +1,13 @@
 import "modules"
 import qs.config
 import qs.services
+import qs.widgets
 import QtQuick
 
 Item {
   id: root
   required property var window
-  implicitHeight: Appearance.barHeight
+  implicitHeight: Config.barHeight
 
   Rectangle {
     anchors.fill: parent
@@ -20,6 +21,9 @@ Item {
       id: leftBlocks
       anchors {
         left: parent.left
+      }
+      HorizontalSpacer {
+        size: 2
       }
       SysTray {
         window: root.window
@@ -41,6 +45,9 @@ Item {
       }
       Battery {}
       Clock {}
+      HorizontalSpacer {
+        size: 2
+      }
     }
   }
 }

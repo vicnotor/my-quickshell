@@ -9,7 +9,7 @@ StyledRect {
   property var margin: Appearance.margins.smaller
   color: Colors.palette.m3surfaceContainer
   radius: Appearance.rounding.small
-  implicitHeight: Appearance.barModulesHeight
+  implicitHeight: Config.barModulesHeight
   implicitWidth: contentContainer.implicitWidth + margin * 2
 
   Item {

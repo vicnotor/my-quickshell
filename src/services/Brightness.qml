@@ -15,18 +15,11 @@ Singleton {
     return monitors.find(m => m.modelData === screen);
   }
 
-  function increaseBrightness(): void {
+  function changeBrightness(amount: real): void {
     const focusedName = Hyprland.focusedMonitor.name;
     const monitor = monitors.find(m => focusedName === m.modelData.name);
     if (monitor)
-      monitor.setBrightness(monitor.brightness + 0.1);
-  }
-
-  function decreaseBrightness(): void {
-    const focusedName = Hyprland.focusedMonitor.name;
-    const monitor = monitors.find(m => focusedName === m.modelData.name);
-    if (monitor)
-      monitor.setBrightness(monitor.brightness - 0.1);
+      monitor.setBrightness(monitor.brightness + amount);
   }
 
   reloadableId: "brightness"
@@ -37,18 +30,6 @@ Singleton {
     model: Quickshell.screens
 
     Monitor {}
-  }
-
-  CustomShortcut {
-    name: "brightnessUp"
-    description: "Increase brightness"
-    onPressed: root.increaseBrightness()
-  }
-
-  CustomShortcut {
-    name: "brightnessDown"
-    description: "Decrease brightness"
-    onPressed: root.decreaseBrightness()
   }
 
   component Monitor: QtObject {
