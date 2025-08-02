@@ -3,6 +3,6 @@ import QtQuick
 
 Row {
   id: root
-  spacing: Appearance.spacing.smaller
+  spacing: Appearance.spacing.small
   anchors.verticalCenter: parent.verticalCenter
 }

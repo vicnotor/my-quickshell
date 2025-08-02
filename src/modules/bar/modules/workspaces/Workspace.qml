@@ -12,26 +12,23 @@ Item {
   required property var occupied
   required property int groupOffset
 
-  readonly property bool isWorkspace: true // Flag for finding workspace children
-  // Unanimated prop for others to use as reference
+  readonly property bool isWorkspace: true
   readonly property real size: childrenRect.height + (hasWindows ? Appearance.padding.smaller : 0)
 
   readonly property int ws: groupOffset + index + 1
   readonly property bool isOccupied: occupied[ws] ?? false
-  readonly property bool hasWindows: isOccupied && false
+  readonly property bool hasWindows: false
 
-  Layout.preferredWidth: childrenRect.width
-  Layout.preferredHeight: size
+  Layout.preferredWidth: size
+  Layout.preferredHeight: childrenRect.height
 
   StyledText {
     id: indicator
 
     readonly property string label: root.ws
-    readonly property string occupiedLabel: label
-    readonly property string activeLabel: (root.isOccupied ? occupiedLabel : label)
 
     animate: true
-    text: Hyprland.focusedWorkspace.id === root.ws ? activeLabel : root.isOccupied ? occupiedLabel : label
+    text: label
     color: root.isOccupied || Hyprland.focusedWorkspace.id === root.ws ? Colors.palette.m3onSurface : Colors.palette.m3outlineVariant
     horizontalAlignment: StyledText.AlignHCenter
     verticalAlignment: StyledText.AlignVCenter

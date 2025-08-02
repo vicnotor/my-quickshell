@@ -63,7 +63,9 @@ StyledRect {
   Behavior on leading {
     enabled: true
 
-    Anim {}
+    Anim {
+      duration: Appearance.anim.durations.normal
+    }
   }
 
   Behavior on trailing {
@@ -95,6 +97,6 @@ StyledRect {
   component Anim: NumberAnimation {
     duration: Appearance.anim.durations.normal
     easing.type: Easing.BezierSpline
-    easing.bezierCurve: Appearance.anim.curves.emphasized
+    easing.bezierCurve: Appearance.anim.curves.emphasizedDecel
   }
 }

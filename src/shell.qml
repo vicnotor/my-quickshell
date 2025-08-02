@@ -1,10 +1,8 @@
 //@ pragma UseQApplication
 
-import qs.modules.bar
-import qs.modules.verticalbar
+import qs.modules
 import Quickshell
 
-Scope {
-  Bar {}
-  VerticalBar {}
+ShellRoot {
+  Main {}
 }

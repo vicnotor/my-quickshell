@@ -8,10 +8,13 @@ Item {
   id: root
 
   readonly property list<Workspace> workspaces: layout.children.filter(c => c.isWorkspace).sort((w1, w2) => w1.ws - w2.ws)
-  readonly property var occupied: Hyprland.workspaces.values.reduce((acc, curr) => {
-    acc[curr.id] = curr.lastIpcObject.windows > 0;
-    return acc;
-  }, {})
+  readonly property var occupied: {
+    Hyprland.workspaces.values.reduce((acc, curr) => {
+      acc[curr.id] = curr.lastIpcObject.windows > 0;
+      return acc;
+    }, {});
+  }
+
   readonly property int groupOffset: Math.floor((Hyprland.focusedWorkspace.id - 1) / 10) * 10 // 10 workspaces total
 
   implicitWidth: layout.implicitWidth

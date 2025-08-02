@@ -31,7 +31,7 @@
 
     devShells = forEachSupportedSystem ({pkgs}: let
       shell = self.packages.${pkgs.system}.default;
-      run-quickshell-from-here = pkgs.writeShellScriptBin "run-quickshell-from-here" ''
+      run-my-quickshell-from-here = pkgs.writeShellScriptBin "run-my-quickshell-from-here" ''
         qs -p src
       '';
     in {
@@ -45,7 +45,7 @@
 
             material-symbols
             nerd-fonts.jetbrains-mono
-            run-quickshell-from-here
+            run-my-quickshell-from-here
           ];
           shellHook = ''
             echo "Generating empty .qmlls.ini file if non-existent"

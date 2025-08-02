@@ -7,11 +7,11 @@ import Quickshell.Widgets
 MouseArea {
   id: root
 
-  required property var bar
+  required property var window
   required property SystemTrayItem item
 
   Layout.minimumHeight: 24
-  Layout.minimumWidth: 28
+  Layout.minimumWidth: 24
 
   acceptedButtons: Qt.LeftButton | Qt.RightButton
   onClicked: event => {
@@ -30,7 +30,7 @@ MouseArea {
     id: menu
     menu: root.item.menu
     anchor {
-      window: root.bar
+      window: root.window
       rect {
         x: root.x
         y: root.y

@@ -19,8 +19,5 @@ Column {
     icon: `brightness_${(Math.round(value * 6) + 1)}`
     value: root.monitor?.brightness ?? 0
     onMoved: root.monitor?.setBrightness(value)
-
-    implicitWidth: 30
-    implicitHeight: 150
   }
 }

@@ -14,6 +14,9 @@ Slider {
 
   orientation: Qt.Vertical
 
+  implicitWidth: 30
+  implicitHeight: 150
+
   background: StyledRect {
     color: Colors.alpha(Colors.palette.m3surfaceContainer, true)
     radius: Appearance.rounding.full
