@@ -7,10 +7,6 @@
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    app2unit = {
-      url = "github:soramanew/app2unit";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = {
@@ -29,7 +25,6 @@
       my-quickshell = pkgs.callPackage ./default.nix {
         rev = self.rev or self.dirtyRev;
         quickshell = inputs.quickshell.packages.${pkgs.system}.default;
-        app2unit = inputs.app2unit.packages.${pkgs.system}.default;
       };
       default = my-quickshell;
     });
