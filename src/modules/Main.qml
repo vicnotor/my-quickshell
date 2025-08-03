@@ -1,4 +1,3 @@
-import "verticalbar"
 import "osd"
 import qs.config
 import qs.modules.bar
@@ -32,9 +31,6 @@ Variants {
       Bar {
         anchors.fill: parent
         window: win
-      }
-      VerticalBar {
-        visible: false
       }
       OsdVolume {}
       OsdBrightness {

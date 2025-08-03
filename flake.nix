@@ -47,10 +47,6 @@
             nerd-fonts.jetbrains-mono
             run-my-quickshell-from-here
           ];
-          shellHook = ''
-            echo "Generating empty .qmlls.ini file if non-existent"
-            touch .qmlls.ini
-          '';
         };
     });
   };
