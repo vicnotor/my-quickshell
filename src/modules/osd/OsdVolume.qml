@@ -2,6 +2,7 @@ import qs.widgets
 import qs.services
 import QtQuick
 import Quickshell
+import Quickshell.Wayland
 
 Scope {
   id: root
@@ -37,6 +38,8 @@ Scope {
       anchors.right: true
       margins.right: volumeSlider.implicitWidth
       exclusiveZone: 0
+
+      WlrLayershell.layer: WlrLayer.Overlay
 
       implicitWidth: volumeSlider.implicitWidth
       implicitHeight: volumeSlider.implicitHeight

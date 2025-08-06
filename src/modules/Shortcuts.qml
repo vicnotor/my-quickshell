@@ -21,8 +21,8 @@ Scope {
     description: "Toggle mute audio"
     onPressed: Audio.toggleMute()
   }
-  // Brightness
 
+  // Brightness
   CustomShortcut {
     name: "brightnessUp"
     description: "Increase brightness"
