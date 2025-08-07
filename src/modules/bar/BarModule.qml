@@ -5,9 +5,12 @@ import QtQuick
 
 StyledRect {
   id: root
+
   property Item content
   property var margin: Appearance.margins.smaller
-  color: Colors.palette.m3surfaceContainer
+  property color bg: Colors.palette.m3surfaceContainer
+
+  color: bg
   radius: Appearance.rounding.small
   implicitHeight: Config.barModulesHeight
   implicitWidth: contentContainer.implicitWidth + margin * 2

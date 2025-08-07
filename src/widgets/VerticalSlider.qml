@@ -1,8 +1,8 @@
-import qs.config
 import qs.services
+import qs.widgets
+import qs.config
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Effects
 
 Slider {
   id: root
@@ -10,12 +10,7 @@ Slider {
   required property string icon
   property real oldValue
 
-  wheelEnabled: true
-
   orientation: Qt.Vertical
-
-  implicitWidth: Config.sliderWidth
-  implicitHeight: Config.sliderHeight
 
   background: StyledRect {
     color: Colors.alpha(Colors.palette.m3surfaceContainer, true)
@@ -29,7 +24,7 @@ Slider {
       implicitHeight: parent.height - y
 
       color: Colors.alpha(Colors.palette.m3secondary, true)
-      radius: Appearance.rounding.full
+      radius: parent.radius
     }
   }
 
@@ -42,12 +37,10 @@ Slider {
     implicitWidth: root.width
     implicitHeight: root.width
 
-    RectangularShadow {
+    Elevation {
       anchors.fill: parent
       radius: rect.radius
-      color: Colors.palette.m3shadow
-      blur: 5
-      spread: 0
+      level: handleInteraction.containsMouse ? 2 : 1
     }
 
     StyledRect {
@@ -59,7 +52,10 @@ Slider {
       radius: Appearance.rounding.full
 
       MouseArea {
+        id: handleInteraction
+
         anchors.fill: parent
+        hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
         acceptedButtons: Qt.NoButton
       }
@@ -71,12 +67,9 @@ Slider {
 
         function update(): void {
           animate = !moving;
-          // text = moving ? Qt.binding(() => Math.round(root.value * 100)) : Qt.binding(() => root.icon);
-          // font.pointSize = moving ? Appearance.font.size.small : Appearance.font.size.larger;
-          // font.family = moving ? Appearance.font.family.sans : Appearance.font.family.material;
-          text = moving ? Qt.binding(() => root.icon) : Qt.binding(() => Math.round(root.value * 100));
-          font.pointSize = moving ? Appearance.font.size.larger : Appearance.font.size.small;
-          font.family = moving ? Appearance.font.family.material : Appearance.font.family.sans;
+          text = moving ? Qt.binding(() => Math.round(root.value * 100)) : Qt.binding(() => root.icon);
+          font.pointSize = moving ? Appearance.font.size.small : Appearance.font.size.larger;
+          font.family = moving ? Appearance.font.family.sans : Appearance.font.family.material;
         }
 
         animate: true

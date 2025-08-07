@@ -6,12 +6,9 @@ import Quickshell.Io
 
 Singleton {
   id: root
-  property string battery
+  property string batterySymbol
+  property string batteryPercent
   property bool hasBattery: false
-
-  readonly property string text: {
-    root.battery;
-  }
 
   Process {
     id: batteryCheck
@@ -45,7 +42,8 @@ Singleton {
           batteryIcon = "󰂂";
 
         const symbol = status === "Charging" ? "󰂄" : status === "Not charging" ? "󱈑" : batteryIcon;
-        root.battery = `${symbol} ${capacity}%`;
+        root.batteryPercent = `${capacity}%`;
+        root.batterySymbol = `${symbol}`;
       }
     }
   }

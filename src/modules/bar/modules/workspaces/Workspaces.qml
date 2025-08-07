@@ -52,6 +52,7 @@ Item {
 
   MouseArea {
     anchors.fill: parent
+    cursorShape: Qt.PointingHandCursor
 
     onPressed: event => {
       const ws = layout.childAt(event.x, event.y).index + root.groupOffset + 1;

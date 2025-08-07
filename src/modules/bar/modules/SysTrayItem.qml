@@ -1,3 +1,4 @@
+import qs.config
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
@@ -10,10 +11,12 @@ MouseArea {
   required property var window
   required property SystemTrayItem item
 
-  Layout.minimumHeight: 24
-  Layout.minimumWidth: 24
+  Layout.minimumHeight: Config.barModulesInnerHeight
+  Layout.minimumWidth: Config.barModulesInnerHeight
 
   acceptedButtons: Qt.LeftButton | Qt.RightButton
+  cursorShape: Qt.PointingHandCursor
+
   onClicked: event => {
     switch (event.button) {
     case Qt.LeftButton:
@@ -43,7 +46,7 @@ MouseArea {
     id: trayIcon
     source: root.item.icon
     anchors.centerIn: parent
-    implicitWidth: 24
-    implicitHeight: 24
+    implicitWidth: Config.barModulesInnerHeight
+    implicitHeight: Config.barModulesInnerHeight
   }
 }

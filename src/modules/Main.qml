@@ -1,8 +1,8 @@
 import "osd"
 import qs.config
 import qs.modules.bar
-import qs.widgets
 import qs.services
+import qs.widgets
 import Quickshell
 import QtQuick
 
@@ -32,11 +32,10 @@ Variants {
         anchors.fill: parent
         window: win
       }
-      OsdVolume {}
-      OsdBrightness {
-        monitor: Brightness.monitors[0]
-      }
+      OsdAudio {}
+      OsdBrightness {}
       Shortcuts {}
+      HyprlandService {}
 
       // Toggle visibility of shell
       visible: true

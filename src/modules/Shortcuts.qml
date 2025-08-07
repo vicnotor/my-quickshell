@@ -21,6 +21,21 @@ Scope {
     description: "Toggle mute audio"
     onPressed: Audio.toggleMute()
   }
+  CustomShortcut {
+    name: "micVolumeUp"
+    description: "Mic volume up"
+    onPressed: Audio.setMicVolume(Audio.micVolume + 0.02)
+  }
+  CustomShortcut {
+    name: "micVolumeDown"
+    description: "Mic volume down"
+    onPressed: Audio.setMicVolume(Audio.micVolume - 0.02)
+  }
+  CustomShortcut {
+    name: "toggleMicMute"
+    description: "Toggle mic mute audio"
+    onPressed: Audio.toggleMicMute()
+  }
 
   // Brightness
   CustomShortcut {

@@ -44,7 +44,7 @@ StyledRect {
   x: offset + 1
   y: 1
   implicitWidth: size - 2
-  implicitHeight: 24 - 2
+  implicitHeight: Config.barModulesInnerHeight - 2
   radius: Appearance.rounding.full
   color: Colors.palette.m3primary
 

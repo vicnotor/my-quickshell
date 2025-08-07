@@ -1,5 +1,6 @@
 pragma ComponentBehavior: Bound
 
+import qs.config
 import qs.widgets
 import qs.services
 import QtQuick
@@ -9,7 +10,7 @@ import Quickshell.Wayland
 Scope {
   id: root
 
-  required property Brightness.Monitor monitor
+  property Brightness.Monitor monitor: Brightness.monitors[0]
 
   property bool shouldShowOsd: false
 
@@ -37,20 +38,40 @@ Scope {
 
     PanelWindow {
       anchors.left: true
-      margins.left: slider.implicitWidth
+      margins.left: mouseArea.implicitWidth / 2
       exclusiveZone: 0
 
       WlrLayershell.layer: WlrLayer.Overlay
 
-      implicitWidth: slider.implicitWidth
-      implicitHeight: slider.implicitHeight
+      implicitWidth: mouseArea.implicitWidth
+      implicitHeight: mouseArea.implicitHeight
       color: "transparent"
 
-      VerticalSlider {
-        id: slider
-        icon: `brightness_${(Math.round(value * 6) + 1)}`
-        value: root.monitor?.brightness ?? 0
-        onMoved: root.monitor?.setBrightness(value)
+      CustomMouseArea {
+        id: mouseArea
+        implicitWidth: Config.sliderWidth
+        implicitHeight: Config.sliderHeight
+
+        hoverEnabled: true
+
+        onEntered: timer.stop()
+        onExited: timer.restart()
+
+        onWheel: event => {
+          let current = root.monitor?.brightness ?? 0;
+          if (event.angleDelta.y > 0)
+            root.monitor?.setBrightness(current + 0.05);
+          else if (event.angleDelta.y < 0)
+            root.monitor?.setBrightness(current - 0.05);
+        }
+
+        VerticalSlider {
+          anchors.fill: parent
+
+          icon: `brightness_${(Math.round(value * 6) + 1)}`
+          value: root.monitor?.brightness ?? 0
+          onMoved: root.monitor?.setBrightness(value)
+        }
       }
     }
   }

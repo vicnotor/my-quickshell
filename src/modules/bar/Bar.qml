@@ -25,6 +25,7 @@ Item {
       HorizontalSpacer {
         size: 2
       }
+      Launcher {}
       SysTray {
         window: root.window
       }

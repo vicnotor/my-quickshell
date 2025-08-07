@@ -33,8 +33,8 @@ Item {
     horizontalAlignment: StyledText.AlignHCenter
     verticalAlignment: StyledText.AlignVCenter
 
-    width: 24
-    height: 24
+    width: Config.barModulesInnerHeight - 1
+    height: Config.barModulesInnerHeight
   }
 
   Behavior on Layout.preferredWidth {
