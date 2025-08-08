@@ -35,7 +35,9 @@ Variants {
       OsdAudio {}
       OsdBrightness {}
       Shortcuts {}
-      HyprlandService {}
+      Item {
+        visible: HyprlandService.dummyProp
+      }
 
       // Toggle visibility of shell
       visible: true

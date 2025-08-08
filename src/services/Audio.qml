@@ -15,6 +15,8 @@ Singleton {
   readonly property bool micMuted: source?.audio?.muted ?? false
   readonly property real micVolume: source?.audio?.volume ?? 0
 
+  property bool osdActive: true
+
   function setVolume(volume: real): void {
     if (sink?.ready && sink?.audio) {
       sink.audio.muted = false;

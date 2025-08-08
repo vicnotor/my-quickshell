@@ -48,4 +48,21 @@ Scope {
     description: "Decrease brightness"
     onPressed: Brightness.changeBrightness(-0.05)
   }
+
+  // Brightness
+  CustomShortcut {
+    name: "tempUp"
+    description: "Increase light temperature"
+    onPressed: ScreenTemp.tempUp()
+  }
+  CustomShortcut {
+    name: "tempDown"
+    description: "Decrease light temperature"
+    onPressed: ScreenTemp.tempDown()
+  }
+  CustomShortcut {
+    name: "tempReset"
+    description: "Decrease light temperature"
+    onPressed: ScreenTemp.tempReset()
+  }
 }

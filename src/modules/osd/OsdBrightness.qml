@@ -15,8 +15,11 @@ Scope {
   property bool shouldShowOsd: false
 
   function show(): void {
-    root.shouldShowOsd = true;
-    timer.restart();
+    if (monitor.osdActive) {
+      root.shouldShowOsd = true;
+      timer.restart();
+    } else
+      monitor.osdActive = true;
   }
 
   Connections {
@@ -29,7 +32,7 @@ Scope {
 
   Timer {
     id: timer
-    interval: 2000
+    interval: Config.sliderTimeout
     onTriggered: root.shouldShowOsd = false
   }
 
@@ -52,10 +55,20 @@ Scope {
         implicitWidth: Config.sliderWidth
         implicitHeight: Config.sliderHeight
 
+        acceptedButtons: Qt.RightButton
         hoverEnabled: true
 
         onEntered: timer.stop()
         onExited: timer.restart()
+
+        onClicked: event => {
+          switch (event.button) {
+          case Qt.RightButton:
+            root.monitor?.setBrightness(0.5);
+            break;
+          }
+          event.accepted = true;
+        }
 
         onWheel: event => {
           let current = root.monitor?.brightness ?? 0;

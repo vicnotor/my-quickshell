@@ -1,6 +1,5 @@
 import qs.config
 import qs.widgets
-import qs.services
 import QtQuick
 
 StyledRect {
@@ -8,7 +7,7 @@ StyledRect {
 
   property Item content
   property var margin: Appearance.margins.smaller
-  property color bg: Colors.palette.m3surfaceContainer
+  property color bg: "transparent"
 
   color: bg
   radius: Appearance.rounding.small

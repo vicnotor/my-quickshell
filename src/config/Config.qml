@@ -14,4 +14,5 @@ Singleton {
   // slider
   readonly property int sliderWidth: 30
   readonly property int sliderHeight: 150
+  readonly property int sliderTimeout: 2000
 }

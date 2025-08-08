@@ -7,7 +7,6 @@ import Quickshell.Io
 BarModule {
   id: root
   property bool showPopup: false
-  bg: "transparent"
   content: MouseArea {
     id: mouseArea
     implicitWidth: label.implicitWidth

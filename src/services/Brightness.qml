@@ -1,6 +1,5 @@
 pragma Singleton
 
-import qs.widgets
 import Quickshell
 import Quickshell.Io
 import Quickshell.Hyprland
@@ -37,6 +36,8 @@ Singleton {
 
     required property ShellScreen modelData
     property real brightness
+
+    property bool osdActive: true
 
     readonly property Process initProc: Process {
       stdout: StdioCollector {

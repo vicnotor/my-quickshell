@@ -1,8 +1,11 @@
+pragma Singleton
+
 import Quickshell
 import Quickshell.Hyprland
 import QtQuick
 
 Singleton {
+  readonly property bool dummyProp: false
   Connections {
     target: Hyprland
 

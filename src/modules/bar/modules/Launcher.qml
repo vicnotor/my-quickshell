@@ -7,7 +7,6 @@ import Quickshell.Io
 
 BarModule {
   id: root
-  bg: "transparent"
   content: MouseArea {
 
     implicitWidth: icon.implicitWidth

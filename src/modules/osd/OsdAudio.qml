@@ -1,4 +1,4 @@
-pragma ComponentBehavior:Bound
+pragma ComponentBehavior: Bound
 
 import qs.config
 import qs.widgets
@@ -13,8 +13,11 @@ Scope {
   property bool shouldShowOsd: false
 
   function show(): void {
-    root.shouldShowOsd = true;
-    timer.restart();
+    if (Audio.osdActive) {
+      root.shouldShowOsd = true;
+      timer.restart();
+    } else
+      Audio.osdActive = true;
   }
 
   Connections {
@@ -36,7 +39,7 @@ Scope {
 
   Timer {
     id: timer
-    interval: 2000
+    interval: Config.sliderTimeout
     onTriggered: root.shouldShowOsd = false
   }
 
@@ -61,68 +64,101 @@ Scope {
         radius: Appearance.rounding.normal
       }
 
-      Column {
-        id: column
-        padding: Appearance.padding.large
-        spacing: Appearance.spacing.normal
+      CustomMouseArea {
+        anchors.fill: parent
+        hoverEnabled: true
 
-        CustomMouseArea {
-          id: mouseArea1
-          implicitWidth: Config.sliderWidth
-          implicitHeight: Config.sliderHeight
+        onEntered: timer.stop()
+        onExited: timer.restart()
 
-          hoverEnabled: true
+        Column {
+          id: column
+          padding: Appearance.padding.large
+          spacing: Appearance.spacing.normal
 
-          onEntered: timer.stop()
-          onExited: timer.restart()
+          CustomMouseArea {
+            id: mouseArea1
+            implicitWidth: Config.sliderWidth
+            implicitHeight: Config.sliderHeight
 
-          onWheel: event => {
-            if (event.angleDelta.y > 0)
-              Audio.setVolume(Audio.volume + 0.02);
-            else if (event.angleDelta.y < 0)
-              Audio.setVolume(Audio.volume - 0.02);
-          }
+            acceptedButtons: Qt.RightButton | Qt.MiddleButton
+            hoverEnabled: true
 
-          VerticalSlider {
-            anchors.fill: parent
-
-            icon: {
-              if (Audio.muted)
-                return "no_sound";
-              if (value >= 0.5)
-                return "volume_up";
-              if (value > 0)
-                return "volume_down";
-              return "volume_mute";
+            onClicked: event => {
+              switch (event.button) {
+              case Qt.RightButton:
+                Audio.toggleMute();
+                break;
+              case Qt.MiddleButton:
+                Audio.setVolume(0.25);
+                break;
+              }
+              event.accepted = true;
             }
 
-            value: Audio.volume
-            onMoved: Audio.setVolume(value)
-          }
-        }
-        CustomMouseArea {
-          id: mouseArea2
-          implicitWidth: Config.sliderWidth
-          implicitHeight: Config.sliderHeight
-
-          onWheel: event => {
-            if (event.angleDelta.y > 0)
-              Audio.setMicVolume(Audio.micVolume + 0.02);
-            else if (event.angleDelta.y < 0)
-              Audio.setMicVolume(Audio.micVolume - 0.02);
-          }
-
-          VerticalSlider {
-            anchors.fill: parent
-
-            icon: {
-              if (Audio.micMuted)
-                return "mic_off";
-              return "mic";
+            onWheel: event => {
+              if (event.angleDelta.y > 0)
+                Audio.setVolume(Audio.volume + 0.02);
+              else if (event.angleDelta.y < 0)
+                Audio.setVolume(Audio.volume - 0.02);
             }
 
-            value: Audio.micVolume
-            onMoved: Audio.setMicVolume(value)
+            VerticalSlider {
+              anchors.fill: parent
+
+              icon: {
+                if (Audio.muted)
+                  return "no_sound";
+                if (value >= 0.5)
+                  return "volume_up";
+                if (value > 0)
+                  return "volume_down";
+                return "volume_mute";
+              }
+
+              value: Audio.volume
+              onMoved: Audio.setVolume(value)
+            }
+          }
+          CustomMouseArea {
+            id: mouseArea2
+            implicitWidth: Config.sliderWidth
+            implicitHeight: Config.sliderHeight
+
+            acceptedButtons: Qt.RightButton | Qt.MiddleButton
+            hoverEnabled: true
+
+            onClicked: event => {
+              switch (event.button) {
+              case Qt.RightButton:
+                Audio.toggleMicMute();
+                break;
+              case Qt.MiddleButton:
+                Audio.setMicVolume(0.25);
+                break;
+              }
+              event.accepted = true;
+            }
+
+            onWheel: event => {
+              if (event.angleDelta.y > 0)
+                Audio.setMicVolume(Audio.micVolume + 0.02);
+              else if (event.angleDelta.y < 0)
+                Audio.setMicVolume(Audio.micVolume - 0.02);
+            }
+
+            VerticalSlider {
+              anchors.fill: parent
+
+              icon: {
+                if (Audio.micMuted)
+                  return "mic_off";
+                return "mic";
+              }
+
+              value: Audio.micVolume
+              onMoved: Audio.setMicVolume(value)
+            }
           }
         }
       }

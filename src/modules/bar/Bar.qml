@@ -1,4 +1,4 @@
-import "modules"
+import "modules" as BarModules
 import qs.config
 import qs.services
 import qs.widgets
@@ -25,8 +25,8 @@ Item {
       HorizontalSpacer {
         size: 2
       }
-      Launcher {}
-      SysTray {
+      BarModules.Launcher {}
+      BarModules.SysTray {
         window: root.window
       }
     }
@@ -36,7 +36,7 @@ Item {
       anchors {
         horizontalCenter: parent.horizontalCenter
       }
-      Workspaces {}
+      BarModules.Workspaces {}
     }
 
     BarModuleGroup {
@@ -44,8 +44,8 @@ Item {
       anchors {
         right: parent.right
       }
-      Battery {}
-      Clock {}
+      BarModules.System {}
+      BarModules.Clock {}
       HorizontalSpacer {
         size: 2
       }
