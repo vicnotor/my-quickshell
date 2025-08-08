@@ -26,9 +26,11 @@ Variants {
       }
 
       implicitHeight: Config.barHeight
+      exclusiveZone: Config.barHeight
 
       // All components
       Bar {
+        id: bar
         anchors.fill: parent
         window: win
       }
@@ -39,15 +41,19 @@ Variants {
         visible: HyprlandService.dummyProp
       }
 
-      // Toggle visibility of shell
+      // Toggle visibility of bar
       visible: true
-      function toggleShell() {
-        visible = !visible;
+      function toggleBar() {
+        bar.visible = !bar.visible;
+        if (win.exclusiveZone === 0)
+          win.exclusiveZone = Config.barHeight;
+        else
+          win.exclusiveZone = 0;
       }
       CustomShortcut {
-        name: "toggleShell"
-        description: "Toggle Shell visibility"
-        onPressed: win.toggleShell()
+        name: "toggleBar"
+        description: "Toggle Bar visibility"
+        onPressed: win.toggleBar()
       }
     }
   }
