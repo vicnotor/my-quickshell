@@ -46,17 +46,22 @@ CustomMouseArea {
     text: {
       let temp = ScreenTemp.temp;
       if (temp === 6500)
-        return "clear_day";
-      else if (temp >= 5000)
-        return "brightness_3";
-      else if (temp >= 2000)
-        return "brightness_2";
+        return "light_mode";
       else
-        return "brightness_1";
+        return "mode_night";
     }
     font.family: Appearance.font.family.material
-    color: Colors.palette.m3onSurface
+    color: {
+      let temp = ScreenTemp.temp;
+      if (temp === 6500)
+        return Colors.palette.m3onSurface;
+      else if (temp >= 2000)
+        return Colors.palette.darkred;
+      else
+        return Colors.palette.m3errorContainer;
+    }
   }
+
   BarPopup {
     showPopup: root.showPopup
     anchorItem: root
