@@ -20,9 +20,9 @@ CustomMouseArea {
 
   onWheel: event => {
     if (event.angleDelta.y > 0)
-      ScreenTemp.tempUp();
+      ScreenTemp.tempUp(100);
     else if (event.angleDelta.y < 0)
-      ScreenTemp.tempDown();
+      ScreenTemp.tempDown(100);
   }
 
   onClicked: event => {
