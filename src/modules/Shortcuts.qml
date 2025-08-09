@@ -53,12 +53,12 @@ Scope {
   CustomShortcut {
     name: "tempUp"
     description: "Increase light temperature"
-    onPressed: ScreenTemp.tempUp()
+    onPressed: ScreenTemp.tempUp(100)
   }
   CustomShortcut {
     name: "tempDown"
     description: "Decrease light temperature"
-    onPressed: ScreenTemp.tempDown()
+    onPressed: ScreenTemp.tempDown(100)
   }
   CustomShortcut {
     name: "tempReset"
