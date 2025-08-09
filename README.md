@@ -1,3 +1,10 @@
 # my-quickshell
 
-Adapted from [caelestia-dots/shell](https://github.com/caelestia-dots/shell).
+Heavily inspired by
+[caelestia-dots/shell](https://github.com/caelestia-dots/shell).
+
+## TODO
+
+- MPRIS
+- Animations of popups and osd
+- Notifications
