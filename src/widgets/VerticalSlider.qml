@@ -13,7 +13,7 @@ Slider {
   orientation: Qt.Vertical
 
   background: StyledRect {
-    color: Colors.alpha(Colors.palette.m3surfaceContainer, true)
+    color: Colors.palette.m3surfaceContainer
     radius: Appearance.rounding.full
 
     StyledRect {
@@ -23,7 +23,7 @@ Slider {
       y: root.handle.y
       implicitHeight: parent.height - y
 
-      color: Colors.alpha(Colors.palette.m3secondary, true)
+      color: Colors.palette.m3secondary
       radius: parent.radius
     }
   }
@@ -48,7 +48,7 @@ Slider {
 
       anchors.fill: parent
 
-      color: Colors.alpha(Colors.palette.m3inverseSurface, true)
+      color: Colors.palette.m3inverseSurface
       radius: Appearance.rounding.full
 
       MouseArea {
