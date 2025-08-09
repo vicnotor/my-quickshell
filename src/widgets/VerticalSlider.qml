@@ -10,6 +10,17 @@ Slider {
   required property string icon
   property real oldValue
 
+  Component.onCompleted: {
+    oldValue = value;
+    handle.moving = false;
+
+    if (typeof icon !== "undefined") {
+      toNumberAnim.stop();
+      toIconAnim.stop();
+      icon.applyIconVisual();
+    }
+  }
+
   orientation: Qt.Vertical
 
   background: StyledRect {
@@ -64,43 +75,91 @@ Slider {
         id: icon
 
         property bool moving: handle.moving
+        property real visualScale: 1
+        scale: visualScale
 
-        function update(): void {
-          animate = !moving;
-          text = moving ? Qt.binding(() => Math.round(root.value * 100)) : Qt.binding(() => root.icon);
-          font.pointSize = moving ? Appearance.font.size.small : Appearance.font.size.larger;
-          font.family = moving ? Appearance.font.family.sans : Appearance.font.family.material;
+        function applyNumberVisual() {
+          animate = false;
+
+          var immediate = Math.round(root.value * 100);
+          text = (isFinite(immediate) ? immediate.toString() : "0");
+
+          text = Qt.binding(() => {
+            var v = Math.round(root.value * 100);
+            return (typeof v === "number" && !isNaN(v)) ? v.toString() : "0";
+          });
+
+          font.pointSize = Appearance.font.size.small;
+          font.family = Appearance.font.family.sans;
         }
 
-        animate: true
-        text: root.icon
-        color: Colors.palette.m3inverseOnSurface
-        anchors.centerIn: parent
+        function applyIconVisual() {
+          animate = true;
+          text = (typeof root.icon === "string" && root.icon.length > 0) ? root.icon : " ";
+          font.pointSize = Appearance.font.size.larger;
+          font.family = Appearance.font.family.material;
+        }
 
-        Behavior on moving {
-          SequentialAnimation {
-            NumberAnimation {
-              target: icon
-              property: "scale"
-              from: 1
-              to: 0
-              duration: Appearance.anim.durations.normal / 2
-              easing.type: Easing.BezierSpline
-              easing.bezierCurve: Appearance.anim.curves.standardAccel
-            }
-            ScriptAction {
-              script: icon.update()
-            }
-            NumberAnimation {
-              target: icon
-              property: "scale"
-              from: 0
-              to: 1
-              duration: Appearance.anim.durations.normal / 2
-              easing.type: Easing.BezierSpline
-              easing.bezierCurve: Appearance.anim.curves.standardDecel
-            }
+        anchors.centerIn: parent
+        color: Colors.palette.m3inverseOnSurface
+
+        SequentialAnimation {
+          id: toNumberAnim
+          NumberAnimation {
+            target: icon
+            property: "visualScale"
+            from: icon.visualScale
+            to: 0
+            duration: Appearance.anim.durations.normal / 2
+            easing.type: Easing.BezierSpline
+            easing.bezierCurve: Appearance.anim.curves.standardAccel
           }
+          ScriptAction {
+            script: icon.applyNumberVisual()
+          }
+          NumberAnimation {
+            target: icon
+            property: "visualScale"
+            from: 0
+            to: 1
+            duration: Appearance.anim.durations.normal / 2
+            easing.type: Easing.BezierSpline
+            easing.bezierCurve: Appearance.anim.curves.standardDecel
+          }
+        }
+
+        SequentialAnimation {
+          id: toIconAnim
+          NumberAnimation {
+            target: icon
+            property: "visualScale"
+            from: icon.visualScale
+            to: 0
+            duration: Appearance.anim.durations.normal / 2
+            easing.type: Easing.BezierSpline
+            easing.bezierCurve: Appearance.anim.curves.standardAccel
+          }
+          ScriptAction {
+            script: icon.applyIconVisual()
+          }
+          NumberAnimation {
+            target: icon
+            property: "visualScale"
+            from: 0
+            to: 1
+            duration: Appearance.anim.durations.normal / 2
+            easing.type: Easing.BezierSpline
+            easing.bezierCurve: Appearance.anim.curves.standardDecel
+          }
+        }
+
+        onMovingChanged: {
+          toNumberAnim.stop();
+          toIconAnim.stop();
+          if (moving)
+            toNumberAnim.start();
+          else
+            toIconAnim.start();
         }
       }
     }
@@ -119,7 +178,7 @@ Slider {
   Timer {
     id: stateChangeDelay
 
-    interval: 500
+    interval: 800
     onTriggered: {
       if (!root.pressed)
         handle.moving = false;
