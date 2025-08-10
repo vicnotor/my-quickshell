@@ -37,6 +37,7 @@ CustomMouseArea {
     case Qt.MiddleButton:
       Audio.osdActive = false;
       Audio.setVolume(0.25);
+      Audio.osdActive = false;
       break;
     }
     event.accepted = true;
@@ -110,6 +111,7 @@ CustomMouseArea {
             case Qt.MiddleButton:
               Audio.osdActive = false;
               Audio.setVolume(0.25);
+              Audio.osdActive = false;
               break;
             }
             event.accepted = true;
@@ -143,6 +145,7 @@ CustomMouseArea {
             onMoved: {
               Audio.osdActive = false;
               Audio.setVolume(value);
+              Audio.osdActive = false;
             }
           }
         }
