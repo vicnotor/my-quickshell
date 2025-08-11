@@ -95,7 +95,7 @@ Slider {
 
         function applyIconVisual() {
           animate = true;
-          text = (typeof root.icon === "string" && root.icon.length > 0) ? root.icon : " ";
+          text = Qt.binding(() => root.icon);
           font.pointSize = Appearance.font.size.larger;
           font.family = Appearance.font.family.material;
         }
