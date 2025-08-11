@@ -102,7 +102,10 @@ CustomMouseArea {
 
         icon: `brightness_${(Math.round(value * 6) + 1)}`
         value: root.monitor?.brightness ?? 0
-        onMoved: root.monitor?.setBrightness(value)
+        onMoved: {
+          root.monitor.osdActive = false;
+          root.monitor?.setBrightness(value);
+        }
       }
     }
   }

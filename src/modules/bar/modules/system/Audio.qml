@@ -195,6 +195,7 @@ CustomMouseArea {
             onMoved: {
               Audio.osdActive = false;
               Audio.setMicVolume(value);
+              Audio.osdActive = false;
             }
           }
         }
