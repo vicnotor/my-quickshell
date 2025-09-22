@@ -5,11 +5,31 @@ import qs.modules.bar
 import qs.services
 import qs.widgets
 import QtQuick
+import Quickshell
 
 CustomMouseArea {
   id: root
 
   property bool showPopup: false
+
+  function show(): void {
+    root.showPopup = true;
+    timer.restart();
+  }
+
+  Connections {
+    target: ScreenTemp
+
+    function onTempChanged() {
+      root.show();
+    }
+  }
+
+  Timer {
+    id: timer
+    interval: Config.sliderTimeout
+    onTriggered: root.showPopup = false
+  }
 
   implicitWidth: label.implicitWidth
   implicitHeight: label.implicitHeight
